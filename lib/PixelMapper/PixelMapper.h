@@ -1,5 +1,4 @@
-#ifndef PIXEL_MAPPER_H
-#define PIXEL_MAPPER_H
+#pragma once
 
 #include <Arduino.h>
 
@@ -13,5 +12,3 @@ private:
     uint8_t _width;
     uint8_t _height;
 };
-
-#endif
