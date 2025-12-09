@@ -51,5 +51,20 @@ const Glyph* asciiCharacterTable[128] = {
 // Custom character table
 const CustomGlyph* customCharacterTable[] = {
     &CUSTOM_GLYPH_HEART,
-    nullptr
+    nullptr // Terminate with nullptr so lookup in getCustomGlyph has an end condition
 };
+
+////////////////////////////////////////////////////
+// Helper functions
+////////////////////////////////////////////////////
+
+// Retrieve custom glyph by name
+// We don't use a hashmap here due to the ram limitations of the ulanzi
+const Glyph* getCustomGlyph(const char* name) {
+    for (int i = 0; customCharacterTable[i] != nullptr; i++) {
+        if (strcmp(customCharacterTable[i]->name, name) == 0) {
+            return customCharacterTable[i]->characterGlyph;
+        }
+    }
+    return nullptr;
+}
