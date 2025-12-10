@@ -44,9 +44,11 @@ const CustomGlyph CUSTOM_GLYPH_HEART = {"heart", &GLYPH_HEART};
 ////////////////////////////////////////////////////
 
 // Ascii table
-const Glyph* asciiCharacterTable[128] = {
-    ['A'] = &GLYPH_A
-};
+const Glyph* asciiCharacterTable[128] = {nullptr};
+
+void initialseAsciiCharacterTable() {
+    asciiCharacterTable['A'] = &GLYPH_A;
+}
 
 // Custom character table
 const CustomGlyph* customCharacterTable[] = {

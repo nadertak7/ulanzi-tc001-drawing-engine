@@ -17,5 +17,7 @@ struct CustomGlyph {
 
 extern const CustomGlyph* customCharacterTable[];
 
+void initialseAsciiCharacterTable();
+
 // Helper function to lookup custom glyph by name
 const Glyph* getCustomGlyph(const char* name);
