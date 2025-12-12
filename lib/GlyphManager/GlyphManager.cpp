@@ -44,8 +44,9 @@ const CustomGlyph CUSTOM_GLYPH_HEART = {"heart", &GLYPH_HEART};
 ////////////////////////////////////////////////////
 
 // Ascii table
-const Glyph* asciiCharacterTable[128] = {nullptr};
-
+// Zero-initialise all elements to nullptr
+const Glyph* asciiCharacterTable[128] = {};
+// Can't write executeable statements in a global scope so we assign inside a function
 void initialseAsciiCharacterTable() {
     asciiCharacterTable['A'] = &GLYPH_A;
 }
