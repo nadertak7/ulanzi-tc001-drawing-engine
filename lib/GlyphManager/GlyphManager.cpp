@@ -64,7 +64,7 @@ const CustomGlyph* customCharacterTable[] = {
 // Retrieve custom glyph by name
 // We don't use a hashmap here due to the ram limitations of the ulanzi
 const Glyph* getCustomGlyph(const char* name) {
-    for (int i = 0; customCharacterTable[i] != nullptr; i++) {
+    for (int i{}; customCharacterTable[i] != nullptr; i++) {
         if (strcmp(customCharacterTable[i]->name, name) == 0) {
             return customCharacterTable[i]->characterGlyph;
         }

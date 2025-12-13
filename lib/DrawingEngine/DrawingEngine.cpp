@@ -11,12 +11,12 @@ void DrawingEngine::drawPixel(int x, int y, CRGB colour) {
 }
 
 void DrawingEngine::drawGlyph(const Glyph* glyph, int x, int y, CRGB colour) {
-    for(int row = 0; row < glyph->height; row++) {
+    for (int row{}; row < glyph->height; row++) {
 
         uint8_t bitshift = glyph->width - 1;
         uint8_t charRowBits = glyph->bitmap[row];
 
-        for(int col = 0; col < glyph->width; col++) {
+        for (int col{}; col < glyph->width; col++) {
             // We bitshift on 1 n times for column index and use an AND mask on the row bitmap.
             // When passed into a bool, a binary literal with 1+ set bit returns True,
             // and a binary literal with no set bits returns False.
@@ -29,7 +29,7 @@ void DrawingEngine::drawGlyph(const Glyph* glyph, int x, int y, CRGB colour) {
             // ledOn = 0b01000 (non-zero value, so truthy)
             bool ledOn = charRowBits & (1 << bitshift);
 
-            if(ledOn) {
+            if (ledOn) {
                 drawPixel(x + col, y + row, colour);
             }
 
