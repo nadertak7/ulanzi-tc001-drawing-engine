@@ -40,14 +40,16 @@ void DrawingEngine::drawGlyph(const Glyph* glyph, int x, int y, CRGB colour) {
     }
 }
 
-void DrawingEngine::drawText(const char* text, int x, int y, CRGB colour, uint16_t spaceWidth) {
+void DrawingEngine::drawText(const char* text, int x, int y, CRGB colour, uint16_t glyphSpacing, uint16_t spaceSpacing) {
     int cursorX = x;
 
     while (*text) {
         const Glyph* glyph = nullptr;
 
-        // Handle custom glyphs wrapped in {}
-        if (*text == '{') {
+        if (*text == ' ') {
+            cursorX += spaceSpacing;
+        }
+        else if (*text == '{') { // Handle custom glyphs wrapped in {}
             text++; // Point to character after opening brace
 
             char customCharName[32] = {};
@@ -70,7 +72,8 @@ void DrawingEngine::drawText(const char* text, int x, int y, CRGB colour, uint16
                 glyph = getCustomGlyph(customCharName);
             }
 
-        } else { // For characters not wrapped in {}
+        }
+        else { // For characters not wrapped in {}
             uint8_t character = (uint8_t)*text;
             if (character < 128) {
                 glyph = asciiCharacterTable[character];
@@ -79,7 +82,7 @@ void DrawingEngine::drawText(const char* text, int x, int y, CRGB colour, uint16
 
         if (glyph) {
             drawGlyph(glyph, cursorX, y, colour);
-            cursorX += glyph->width + spaceWidth;
+            cursorX += glyph->width + glyphSpacing;
         }
 
         text++;
