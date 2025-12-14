@@ -25,12 +25,13 @@ void setup() {
 
     // Link LED array with ulanzi hardware
     FastLED.addLeds<NEOPIXEL, PIN_LED_MATRIX>(leds, NUM_LEDS);
+
+    FastLED.setBrightness(DISPLAY_DEFAULT_BRIGHTNESS);
 }
 
 void loop() {
     drawingEngine.drawGlyph(asciiCharacterTable['A'], 1, 1, CRGB(255, 0, 255));
     drawingEngine.drawGlyph(getCustomGlyph("heart"), 6, 1, CRGB(0, 255, 255));
 
-    FastLED.setBrightness(1);
     FastLED.show();
 }

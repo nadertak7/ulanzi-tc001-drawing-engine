@@ -14,4 +14,4 @@ const uint8_t LED_PIXEL_HEIGHT = 8;
 const uint16_t NUM_LEDS = LED_PIXEL_WIDTH * LED_PIXEL_HEIGHT;
 
 // Display
-const uint8_t DEFAULT_BRIGHTNESS = 10;
+const uint8_t DISPLAY_DEFAULT_BRIGHTNESS = 10;
