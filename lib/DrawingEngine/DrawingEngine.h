@@ -14,7 +14,7 @@ public:
 
     void drawGlyph(const Glyph* glyph, int x, int y, CRGB colour);
 
-    void drawText(const char* text, int x, int y, CRGB colour);
+    void drawText(const char* text, int x, int y, CRGB colour, uint16_t spaceWidth = 1);
 
 private:
     CRGB* _led_array;

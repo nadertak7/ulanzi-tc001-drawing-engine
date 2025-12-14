@@ -1,4 +1,6 @@
 #include <DrawingEngine.h>
+#include <GlyphManager.h>
+#include <Config.h>
 
 DrawingEngine::DrawingEngine(CRGB* led_array, PixelMapper* pixel_mapper)
     : _led_array(led_array), _pixel_mapper(pixel_mapper) {}
@@ -35,5 +37,51 @@ void DrawingEngine::drawGlyph(const Glyph* glyph, int x, int y, CRGB colour) {
 
             bitshift--;
         }
+    }
+}
+
+void DrawingEngine::drawText(const char* text, int x, int y, CRGB colour, uint16_t spaceWidth) {
+    int cursorX = x;
+
+    while (*text) {
+        const Glyph* glyph = nullptr;
+
+        // Handle custom glyphs wrapped in {}
+        if (*text == '{') {
+            text++; // Point to character after opening brace
+
+            char customCharName[32] = {};
+            int customCharNameIndex{};
+
+            while (*text && *text != '}' && customCharNameIndex < 31) {
+                customCharName[customCharNameIndex] = *text;
+                customCharNameIndex++;
+                text++;
+            }
+
+            customCharName[customCharNameIndex] = '\0'; // Null terminate string
+
+            if (*text != '}') { // Detects if custom character name is too long or if there is no closing brace
+                Serial.printf("Custom character does not have a closing brace for text %s\n", customCharName);
+                return;
+            }
+
+            if (customCharNameIndex > 0) {
+                glyph = getCustomGlyph(customCharName);
+            }
+
+        } else { // For characters not wrapped in {}
+            uint8_t character = (uint8_t)*text;
+            if (character < 128) {
+                glyph = asciiCharacterTable[character];
+            }
+        }
+
+        if (glyph) {
+            drawGlyph(glyph, cursorX, y, colour);
+            cursorX += glyph->width + spaceWidth;
+        }
+
+        text++;
     }
 }
